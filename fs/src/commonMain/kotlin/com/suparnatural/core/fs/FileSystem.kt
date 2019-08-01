@@ -68,6 +68,11 @@ expect object FileSystem {
     fun readFile(pathComponent: PathComponent, encoding: ContentEncoding = ContentEncoding.Utf8): String?
 
     /**
+     * Returns the contents of the file located at `path`as ByteArray.
+     */
+    fun readFileAsByteArray(path: String):ByteArray?
+
+    /**
      * Writes `contents` to the file located at `path`. If `create` is true, then file is created if it does not exist.
      * For binary files, use `encoding` = [ContentEncoding.Base64].
      * * Returns true if operation is successful, otherwise false.
@@ -81,6 +86,12 @@ expect object FileSystem {
      * Returns true if operation is successful, otherwise false.
      */
     fun writeFile(pathComponent: PathComponent, contents: String, create: Boolean = false, encoding: ContentEncoding = ContentEncoding.Utf8): Boolean
+
+    /**
+     * Writes `contents` to the file located at `path`. If `create` is true, then file is created if it does not exist.
+     * Returns true if operation is successful, otherwise false.
+     */
+    fun writeFile(path: String, contents: ByteArray, create: Boolean): Boolean
 
     /**
      * Appends `contents` to the file located at `path`. If `create` is true, then file is created if it does not exist.

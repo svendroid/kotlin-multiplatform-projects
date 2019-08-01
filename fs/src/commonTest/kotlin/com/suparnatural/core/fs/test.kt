@@ -104,6 +104,13 @@ class FileSystemTests {
 
     }
 
+    @ExperimentalStdlibApi
+    @Test
+    fun testWriteFileByteArray(){
+        assertTrue(FileSystem.writeFile(testFilePath.component!!, "HelloByteArray".encodeToByteArray(), true))
+        assertEquals("HelloByteArray", FileSystem.readFile(testFilePath, ContentEncoding.Utf8))
+    }
+
     @Test
     fun testAppendFileUtf8() {
         assertTrue(FileSystem.appendFile(testFilePath, testString2, false, ContentEncoding.Utf8))

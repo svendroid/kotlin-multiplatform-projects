@@ -95,6 +95,11 @@ actual object FileSystem {
         return readFile(path, encoding)
     }
 
+    actual fun readFileAsByteArray(path: String): ByteArray? {
+        val file = File(path).canonicalFile
+        return file.readBytes()
+    }
+
     private fun writeFile(path: String, contents: String, create: Boolean, encoding: ContentEncoding, append: Boolean = false): Boolean {
         val file = File(path).canonicalFile
         if (!file.exists()) {
@@ -139,6 +144,16 @@ actual object FileSystem {
         return writeFile(path, contents, create, encoding, false)
     }
 
+    actual fun writeFile(path: String, contents: ByteArray, create: Boolean): Boolean {
+        val file = File(path).canonicalFile
+        if (!file.exists()) {
+            if (!create) return false
+            file.createNewFile()
+        }
+
+        FileOutputStream(file, false).write(contents)
+        return true
+    }
 
     actual fun appendFile(path: String, contents: String, create: Boolean, encoding: ContentEncoding): Boolean {
         return writeFile(path, contents, create, encoding, true)
